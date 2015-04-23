@@ -26,6 +26,18 @@
         'group': 'named',
         'mode': '640'
     },
+    'CentOS': {
+        'pkgs': ['bind'],
+        'service': 'named',
+        'config_source_dir': 'bind/files/redhat',
+        'config': '/etc/named.conf',
+        'local_config': '/etc/named.conf.local',
+        'named_directory': '/var/named/data',
+        'log_dir': '/var/log/named',
+        'user': 'root',
+        'group': 'named',
+        'mode': '640'
+    },
 }, merge=salt['grains.filter_by']({
     'Ubuntu': {
         'log_dir': '/var/log/named'
