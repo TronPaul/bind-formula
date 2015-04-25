@@ -69,6 +69,9 @@ view {{ view }} {
   {{ acl }};
 {%- endfor %}
   };
+{% if 'recursion' in view_data %}
+  {{view_data['recursion']}}
+{% endif %}
 
 {% for key, args in view_data.get('configured_zones', {}).iteritems() -%}
 {%- set file = salt['pillar.get']("bind:available_zones:" + key + ":file") %}
