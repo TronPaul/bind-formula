@@ -34,6 +34,13 @@ zone "{{ key }}" {
   {% endfor %}
   };
   {% endif %}
+  {% if args.get('allow-recursion', {}) %}
+  allow-recursion {
+  {% for remote in args.get('allow-recursion', {}) %}
+    {{ remote }};
+  {% endfor %}
+  };
+  {% endif %}
   {% if args['type'] == "master" -%}
     {% if args['notify'] -%}
   notify yes;
