@@ -38,7 +38,9 @@ zone "{{ key }}" {
     {%- endif -%}
   {% else -%}
   notify no;
+  {% if masters %}
   masters { {{ masters }} };
+  {% endif %}
   {%- endif %}
 };
 {%- endmacro %}
@@ -60,11 +62,11 @@ view {{ view }} {
   include "{{ map.default_zones_config }}";
 {%- endif %}
 
-match-clients {
+  match-clients {
 {%- for acl in view_data.get('match_clients', {}) %}
   {{ acl }};
 {%- endfor %}
-};
+  };
 
 {% for key, args in view_data.get('configured_zones', {}).iteritems() -%}
 {%- set file = salt['pillar.get']("bind:available_zones:" + key + ":file") %}
