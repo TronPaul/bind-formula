@@ -10,11 +10,13 @@
 {%- macro zone(key, args, file, masters) %}
 zone "{{ key }}" {
   type {{ args['type'] }};
+  {% if file %}
   {% if args['dnssec'] is defined and args['dnssec'] -%}
   file "zones/{{ file }}.signed";
   {% else -%}
   file "zones/{{ file }}";
   {%- endif %}
+  {% endif %}
   {% if args['allow-update'] is defined -%}
   allow-update { {{args['allow-update']}}; };
   {%- endif %}
