@@ -34,13 +34,6 @@ zone "{{ key }}" {
   {% endfor %}
   };
   {% endif %}
-  {% if args.get('allow-recursion', {}) %}
-  allow-recursion {
-  {% for remote in args.get('allow-recursion', {}) %}
-    {{ remote }};
-  {% endfor %}
-  };
-  {% endif %}
   {% if args['type'] == "master" -%}
     {% if args['notify'] -%}
   notify yes;
@@ -78,6 +71,13 @@ view {{ view }} {
   {{ acl }};
 {%- endfor %}
   };
+{% if 'allow-query' in view_data %}
+  allow-query {
+{%- for acl in view_data.get('allow-query', {}) %}
+  {{ acl }};
+{%- endfor %}
+  };
+{% endif %}
 {% if 'recursion' in view_data %}
   recursion {{'yes' if view_data['recursion'] else 'no'}};
 {% endif %}
