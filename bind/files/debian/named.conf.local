@@ -43,6 +43,8 @@ zone "{{ key }}" {
   {% elif args['type'] != 'forward' -%}
   notify no;
   masters { {{ masters }} };
+  {% elif args['type'] == 'forward' %}
+  forwarders { {{args['forwarders']}} };
   {%- endif %}
 };
 {%- endmacro %}
