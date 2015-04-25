@@ -70,7 +70,7 @@ view {{ view }} {
 {%- endfor %}
   };
 {% if 'recursion' in view_data %}
-  {{view_data['recursion']}}
+  recursion {{view_data['recursion']}};
 {% endif %}
 
 {% for key, args in view_data.get('configured_zones', {}).iteritems() -%}
