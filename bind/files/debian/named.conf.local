@@ -38,11 +38,9 @@ zone "{{ key }}" {
     {% else -%}
   notify no;
     {%- endif -%}
-  {% else -%}
+  {% elif args['type'] != 'forward' -%}
   notify no;
-  {% if masters %}
   masters { {{ masters }} };
-  {% endif %}
   {%- endif %}
 };
 {%- endmacro %}
